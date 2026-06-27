@@ -80,7 +80,7 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
             </article>
         <?php endif; ?>
 
-        <div class="news-grid">
+        <div class="news-grid-home">
             <?php if (empty($latestNews)): ?>
                 <article class="card">
                     <img src="/assets/img/noticia.jpg">
