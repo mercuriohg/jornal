@@ -1,0 +1,58 @@
+[
+    {
+        "id": "member_6a3f18773332b6.07828487",
+        "name": "Germano Becker",
+        "role": "Diretor de Relações Públicas",
+        "bio": "Olá, eu sou o Germano Becker, sou do curso de informática e estou no segundo ano. Dentro do grêmio meu cargo é Diretor de relações públicas, e minha função é fazer os posts que vocês veem no nosso instagram, para deixá-los informados!",
+        "photo": "\/assets\/uploads\/WhatsApp-Image-2026-06-26-at-16-26-33-6a3f1c2144b5f.jpeg",
+        "created_at": 1782519927
+    },
+    {
+        "id": "member_6a3f18d2914d35.65508753",
+        "name": "Isabella Steffen",
+        "role": "Tesoureira",
+        "bio": "Oie, sou a Isabella Steffen sou do curso de Agropecuária e estou no segundo ano. Sou Tesoureira e meu papel é controlar as finanças e o caixa do Grêmio estudantil.",
+        "photo": "\/assets\/uploads\/bella-steffen-6a3f1a0f4ae8f.jpeg",
+        "created_at": 1782520018
+    },
+    {
+        "id": "member_6a3f19c685bd67.60215855",
+        "name": "Arthur Gomes Severo",
+        "role": "Diretor de Assuntos Estudantis",
+        "bio": "Olá, eu sou o Arthur Gomes Severo, sou do curso de informática e estou no quarto ano. Sou Diretor de Assuntos Estudantis e meu papel principal é levar a demanda dos estudantes para criarmos um canal de respeito e de maior acordo com ambas as partes.",
+        "photo": "\/assets\/uploads\/arthur-gomes-6a3f19c68544f.jpg",
+        "created_at": 1782520262
+    },
+    {
+        "id": "member_6a3f1d389bb516.17814180",
+        "name": "Nathália Sparremberger",
+        "role": "Presidente",
+        "bio": "Olá, sou a Nathália Sparremberger, estudante do segundo ano do curso de Agropecuária no turno da manhã e sou a presidente do Grêmio Estudantil. Meu papel é representar os alunos, levando à direção e à equipe escolar todas as nossas demandas, necessidades e reclamações, além de repassar aos estudantes os assuntos trazidos pela escola. Também participo de reuniões e palestras com o objetivo de ser a voz dos alunos e buscar melhorias para todos. Dentro do grêmio, encaminho os assuntos aos setores responsáveis e, por meio da organização da equipe, buscamos desenvolver ações e soluções que beneficiem toda a comunidade escolar.",
+        "photo": "\/assets\/uploads\/nathalia-6a3f1fbd96be7.jpeg",
+        "created_at": 1782521144
+    },
+    {
+        "id": "member_6a3f20c2b527f6.30127625",
+        "name": "Eduardo Samuel",
+        "role": "Vice-Diretor de Assuntos Estudantis",
+        "bio": "Olá, sou Eduardo Samuel Araujo Souza, sou do curso de Administração e estou no terceiro ano. Sou Vice-diretor de Assuntos Estudantis e meu papel é ajudar a representar os interesses dos alunos e organizar ações voltadas aos estudantes.",
+        "photo": "\/assets\/uploads\/eduardo-6a3f20c2b4c72.jpeg",
+        "created_at": 1782522050
+    },
+    {
+        "id": "member_6a3f23852e3c08.45553563",
+        "name": "Raíssa Ferreira",
+        "role": "Vice-Tesoureira",
+        "bio": "Olá, sou Raíssa Ferreira da Silva, sou do curso de Agropecuária e estou no 3° ano. Sou Vice-Tesoureira e meu papel é cuidar do caixa do grêmio estudantil junto com a Tesoureira Geral.",
+        "photo": "\/assets\/uploads\/raissa-6a3f23852de0d.jpeg",
+        "created_at": 1782522757
+    },
+    {
+        "id": "member_6a3f252f71beb6.47253978",
+        "name": "Lucas Silva",
+        "role": "Diretor de Esporte e Cultura",
+        "bio": "Olá, sou Lucas Paulo da Silva, sou do curso de Informática e estou no segundo ano. Sou Diretor de esporte e Cultura e meu papel é organizar eventos esportivos e culturais do Campus Rolante.",
+        "photo": "\/assets\/uploads\/lucas-6a3f25fc85bc5.jpeg",
+        "created_at": 1782523183
+    }
+]
