@@ -6,6 +6,7 @@
 @import url('./admin.css');
 @import url('./responsive.css');
 @import url('./members.css');
+@import url('./root.css');
 html, body {
   height: 100%;
   margin: 0;

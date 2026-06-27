@@ -54,11 +54,22 @@ body {
 
   object-fit: cover;
 }
-
+.news-grid-home{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 10px;
+}
 .hero-content {
   padding: 25px;
 }
-
+.hero-content > p{
+    font-family: var(--font-text);
+    margin-top: 7px;
+}
+.hero-content h1{font-family: var(--font-notice);}
+.news-content{font-family: var(--font-notice);}
+.card-body{font-family: var(--font-notice);}
+.card-body{font-family: var(--font-text);}
 .news-page {
   width: 95%;
   max-width: 1100px;
