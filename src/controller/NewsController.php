@@ -1,18 +1,15 @@
 <?php
+require_once __DIR__ . '/Database.php';
+
 class NewsController
 {
-    private const DATA_FILE = __DIR__ . '/../data/news.json';
-
     public static function readNews(): array
     {
-        if (!file_exists(self::DATA_FILE)) {
-            return [];
-        }
+        $stmt = Database::getConnection()->query(
+            'SELECT * FROM news ORDER BY created_at DESC'
+        );
 
-        $content = file_get_contents(self::DATA_FILE);
-        $news = json_decode($content, true);
-
-        return is_array($news) ? $news : [];
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function save(): void
@@ -35,21 +32,25 @@ class NewsController
         }
 
         $attachments = self::processAttachments($_FILES['attachments'] ?? []);
+        $attachmentsJson = self::encodeAttachments($attachments);
+        $id = uniqid('news_', true);
 
-        $news = self::readNews();
-        $news[] = [
-            'id' => uniqid('news_', true),
-            'title' => $title,
-            'summary' => $summary,
-            'content' => $content,
-            'tag' => $tag,
-            'type' => $type,
-            'image' => $image,
-            'attachments' => $attachments,
-            'created_at' => time(),
-        ];
+        $stmt = Database::getConnection()->prepare(
+            'INSERT INTO news (id, title, summary, content, tag, type, image, attachments, created_at)
+             VALUES (:id, :title, :summary, :content, :tag, :type, :image, :attachments, :created_at)'
+        );
 
-        self::writeNews($news);
+        $stmt->execute([
+            ':id' => $id,
+            ':title' => $title,
+            ':summary' => $summary,
+            ':content' => $content,
+            ':tag' => $tag,
+            ':type' => $type,
+            ':image' => $image,
+            ':attachments' => $attachmentsJson,
+            ':created_at' => time(),
+        ]);
 
         header('Location: /admin?success=1');
         exit;
@@ -57,26 +58,25 @@ class NewsController
 
     public static function getLatestNews(int $limit = 3): array
     {
-        $news = self::readNews();
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM news ORDER BY created_at DESC LIMIT :limit'
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
 
-        usort($news, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
-
-        return array_slice($news, 0, $limit);
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function getNewsByType(string $type, int $limit = 3): array
     {
-        $news = array_filter(self::readNews(), function ($item) use ($type) {
-            return strcasecmp($item['type'] ?? 'noticia', $type) === 0;
-        });
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM news WHERE LOWER(type) = LOWER(:type) ORDER BY created_at DESC LIMIT :limit'
+        );
+        $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
 
-        usort($news, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
-
-        return array_slice(array_values($news), 0, $limit);
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function searchNews(string $query): array
@@ -86,62 +86,56 @@ class NewsController
             return self::readNews();
         }
 
-        $filtered = array_filter(self::readNews(), function ($item) use ($query) {
-            $title = mb_strtolower($item['title'] ?? '');
-            $summary = mb_strtolower($item['summary'] ?? '');
-            $content = mb_strtolower($item['content'] ?? '');
-            $tag = mb_strtolower($item['tag'] ?? '');
+        $like = '%' . $query . '%';
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM news
+             WHERE LOWER(title) LIKE :q
+                OR LOWER(summary) LIKE :q
+                OR LOWER(content) LIKE :q
+                OR LOWER(tag) LIKE :q
+             ORDER BY created_at DESC'
+        );
+        $stmt->execute([':q' => $like]);
 
-            return str_contains($title, $query)
-                || str_contains($summary, $query)
-                || str_contains($content, $query)
-                || str_contains($tag, $query);
-        });
-
-        usort($filtered, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
-
-        return array_values($filtered);
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function getNewsByTag(string $tag): array
     {
-        $news = array_filter(self::readNews(), function ($item) use ($tag) {
-            return strcasecmp($item['tag'], $tag) === 0;
-        });
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM news WHERE LOWER(tag) = LOWER(:tag) ORDER BY created_at DESC'
+        );
+        $stmt->execute([':tag' => $tag]);
 
-        usort($news, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
-
-        return array_values($news);
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function getNewsByTags(array $tags, int $limit = 3): array
     {
-        $normalized = array_map(fn($tag) => mb_strtolower(trim($tag)), $tags);
+        if (empty($tags)) {
+            return [];
+        }
 
-        $filtered = array_filter(self::readNews(), function ($item) use ($normalized) {
-            return in_array(mb_strtolower($item['tag'] ?? ''), $normalized, true);
-        });
+        $placeholders = implode(',', array_fill(0, count($tags), '?'));
+        $sql = 'SELECT * FROM news WHERE LOWER(tag) IN (' . $placeholders . ') ORDER BY created_at DESC LIMIT ?';
+        $stmt = Database::getConnection()->prepare($sql);
 
-        usort($filtered, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
+        $values = array_map('mb_strtolower', $tags);
+        $values[] = $limit;
+        $stmt->execute($values);
 
-        return array_slice(array_values($filtered), 0, $limit);
+        return self::rowsToNews($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public static function getNewsById(string $id): ?array
     {
-        foreach (self::readNews() as $news) {
-            if ($news['id'] === $id) {
-                return $news;
-            }
-        }
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM news WHERE id = :id'
+        );
+        $stmt->execute([':id' => $id]);
 
-        return null;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? self::hydrateNewsRow($row) : null;
     }
 
     public static function delete(string $id): void
@@ -151,17 +145,16 @@ class NewsController
             exit;
         }
 
-        $news = self::readNews();
-        $filtered = array_filter($news, function ($item) use ($id) {
-            return $item['id'] !== $id;
-        });
+        $stmt = Database::getConnection()->prepare(
+            'DELETE FROM news WHERE id = :id'
+        );
+        $stmt->execute([':id' => $id]);
 
-        if (count($filtered) === count($news)) {
+        if ($stmt->rowCount() === 0) {
             header('Location: /admin?error=notfound');
             exit;
         }
 
-        self::writeNews(array_values($filtered));
         header('Location: /admin?deleted=1');
         exit;
     }
@@ -185,38 +178,69 @@ class NewsController
             exit;
         }
 
-        $imageUpload = self::processImageUpload($_FILES['image_file'] ?? []);
-
-        $news = self::readNews();
-        $found = false;
-
-        foreach ($news as &$item) {
-            if ($item['id'] === $id) {
-                $item['title'] = $title;
-                $item['summary'] = $summary;
-                $item['content'] = $content;
-                $item['tag'] = $tag;
-                $item['type'] = $type;
-                if ($imageUpload) {
-                    $item['image'] = $imageUpload;
-                } else {
-                    $item['image'] = $image;
-                }
-                $item['attachments'] = array_values(array_merge($item['attachments'] ?? [], self::processAttachments($_FILES['attachments'] ?? [])));
-                $found = true;
-                break;
-            }
-        }
-        unset($item);
-
-        if (!$found) {
+        $existing = self::getNewsById($id);
+        if (!$existing) {
             header('Location: /admin?error=notfound');
             exit;
         }
 
-        self::writeNews($news);
+        $imageUpload = self::processImageUpload($_FILES['image_file'] ?? []);
+        if ($imageUpload) {
+            $image = $imageUpload;
+        }
+
+        $attachments = $existing['attachments'];
+        $newAttachments = self::processAttachments($_FILES['attachments'] ?? []);
+        if (!empty($newAttachments)) {
+            $attachments = array_values(array_merge($attachments, $newAttachments));
+        }
+
+        $stmt = Database::getConnection()->prepare(
+            'UPDATE news
+             SET title = :title,
+                 summary = :summary,
+                 content = :content,
+                 tag = :tag,
+                 type = :type,
+                 image = :image,
+                 attachments = :attachments
+             WHERE id = :id'
+        );
+
+        $stmt->execute([
+            ':title' => $title,
+            ':summary' => $summary,
+            ':content' => $content,
+            ':tag' => $tag,
+            ':type' => $type,
+            ':image' => $image,
+            ':attachments' => self::encodeAttachments($attachments),
+            ':id' => $id,
+        ]);
+
         header('Location: /admin?updated=1');
         exit;
+    }
+
+    private static function rowsToNews(array $rows): array
+    {
+        return array_map(function ($row) {
+            return self::hydrateNewsRow($row);
+        }, $rows);
+    }
+
+    private static function hydrateNewsRow(array $row): array
+    {
+        $row['attachments'] = json_decode($row['attachments'] ?? '[]', true);
+        if (!is_array($row['attachments'])) {
+            $row['attachments'] = [];
+        }
+        return $row;
+    }
+
+    private static function encodeAttachments(array $attachments): string
+    {
+        return json_encode(array_values($attachments), JSON_UNESCAPED_UNICODE);
     }
 
     private static function processAttachments(array $files): array
@@ -302,16 +326,5 @@ class NewsController
     private static function sanitizeFilename(string $filename): string
     {
         return preg_replace('/[^a-zA-Z0-9_-]/', '-', $filename);
-    }
-
-    private static function writeNews(array $news): void
-    {
-        $dir = dirname(self::DATA_FILE);
-
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-
-        file_put_contents(self::DATA_FILE, json_encode($news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 }
