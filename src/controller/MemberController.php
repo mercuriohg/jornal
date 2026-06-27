@@ -1,40 +1,31 @@
 <?php
+require_once __DIR__ . '/Database.php';
+
 class MemberController
 {
-    private const DATA_FILE = __DIR__ . '/../data/member.json';
-
     public static function readMembers(): array
     {
-        if (!file_exists(self::DATA_FILE)) {
-            return [];
-        }
+        $stmt = Database::getConnection()->query(
+            'SELECT * FROM members ORDER BY created_at DESC'
+        );
 
-        $content = file_get_contents(self::DATA_FILE);
-        $members = json_decode($content, true);
-
-        return is_array($members) ? $members : [];
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getMembers(): array
     {
-        $members = self::readMembers();
-
-        usort($members, function ($a, $b) {
-            return $b['created_at'] <=> $a['created_at'];
-        });
-
-        return $members;
+        return self::readMembers();
     }
 
     public static function getMemberById(string $id): ?array
     {
-        foreach (self::readMembers() as $member) {
-            if ($member['id'] === $id) {
-                return $member;
-            }
-        }
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM members WHERE id = :id'
+        );
+        $stmt->execute([':id' => $id]);
 
-        return null;
+        $member = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $member ?: null;
     }
 
     public static function save(): void
@@ -54,17 +45,19 @@ class MemberController
             $photo = $photoUpload;
         }
 
-        $members = self::readMembers();
-        $members[] = [
-            'id' => uniqid('member_', true),
-            'name' => $name,
-            'role' => $role,
-            'bio' => $bio,
-            'photo' => $photo,
-            'created_at' => time(),
-        ];
+        $stmt = Database::getConnection()->prepare(
+            'INSERT INTO members (id, name, role, bio, photo, created_at)
+             VALUES (:id, :name, :role, :bio, :photo, :created_at)'
+        );
 
-        self::writeMembers($members);
+        $stmt->execute([
+            ':id' => uniqid('member_', true),
+            ':name' => $name,
+            ':role' => $role,
+            ':bio' => $bio,
+            ':photo' => $photo,
+            ':created_at' => time(),
+        ]);
 
         header('Location: /admin-members?success=1');
         exit;
@@ -87,33 +80,34 @@ class MemberController
             exit;
         }
 
-        $photoUpload = self::processImageUpload($_FILES['photo_file'] ?? []);
-
-        $members = self::readMembers();
-        $found = false;
-
-        foreach ($members as &$member) {
-            if ($member['id'] === $id) {
-                $member['name'] = $name;
-                $member['role'] = $role;
-                $member['bio'] = $bio;
-                if ($photoUpload) {
-                    $member['photo'] = $photoUpload;
-                } else {
-                    $member['photo'] = $photo;
-                }
-                $found = true;
-                break;
-            }
-        }
-        unset($member);
-
-        if (!$found) {
+        $existing = self::getMemberById($id);
+        if (!$existing) {
             header('Location: /admin-members?error=notfound');
             exit;
         }
 
-        self::writeMembers($members);
+        $photoUpload = self::processImageUpload($_FILES['photo_file'] ?? []);
+        if ($photoUpload) {
+            $photo = $photoUpload;
+        }
+
+        $stmt = Database::getConnection()->prepare(
+            'UPDATE members
+             SET name = :name,
+                 role = :role,
+                 bio = :bio,
+                 photo = :photo
+             WHERE id = :id'
+        );
+
+        $stmt->execute([
+            ':name' => $name,
+            ':role' => $role,
+            ':bio' => $bio,
+            ':photo' => $photo,
+            ':id' => $id,
+        ]);
+
         header('Location: /admin-members?updated=1');
         exit;
     }
@@ -125,17 +119,16 @@ class MemberController
             exit;
         }
 
-        $members = self::readMembers();
-        $filtered = array_filter($members, function ($item) use ($id) {
-            return $item['id'] !== $id;
-        });
+        $stmt = Database::getConnection()->prepare(
+            'DELETE FROM members WHERE id = :id'
+        );
+        $stmt->execute([':id' => $id]);
 
-        if (count($filtered) === count($members)) {
+        if ($stmt->rowCount() === 0) {
             header('Location: /admin-members?error=notfound');
             exit;
         }
 
-        self::writeMembers(array_values($filtered));
         header('Location: /admin-members?deleted=1');
         exit;
     }
@@ -177,15 +170,5 @@ class MemberController
     private static function sanitizeFilename(string $filename): string
     {
         return preg_replace('/[^a-zA-Z0-9_-]/', '-', $filename);
-    }
-
-    private static function writeMembers(array $members): void
-    {
-        $dir = dirname(self::DATA_FILE);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-
-        file_put_contents(self::DATA_FILE, json_encode($members, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 }
