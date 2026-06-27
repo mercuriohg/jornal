@@ -54,5 +54,13 @@
         "bio": "Olá, sou Lucas Paulo da Silva, sou do curso de Informática e estou no segundo ano. Sou Diretor de esporte e Cultura e meu papel é organizar eventos esportivos e culturais do Campus Rolante.",
         "photo": "\/assets\/uploads\/lucas-6a3f25fc85bc5.jpeg",
         "created_at": 1782523183
+    },
+    {
+        "id": "member_6a3f368873c0d8.57543462",
+        "name": "Ana Caroline",
+        "role": "Vice-Presidente",
+        "bio": "Olá, sou Ana Caroline Heineck de Fraga, sou do curso de informática e estou no segundo ano da manhã. Sou vice-presidente e meu papel é auxiliar o presidente, representar os estudantes e ajudar na organização das ações do Grêmio.",
+        "photo": "\/assets\/uploads\/anacaroline-6a3f3688734a0.jpeg",
+        "created_at": 1782527624
     }
 ]

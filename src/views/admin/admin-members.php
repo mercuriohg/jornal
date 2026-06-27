@@ -7,6 +7,7 @@ $editId = $_GET['edit'] ?? '';
 $editMember = $editId ? MemberController::getMemberById($editId) : null;
 $roles = [
     'Presidente',
+    'Vice-Presidente',
     'Diretora Administrativa',
     'Vice-Diretor Administrativo',
     'Secretária Geral',
