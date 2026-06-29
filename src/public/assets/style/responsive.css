@@ -3,6 +3,7 @@
   .news-grid {
   display: flex;
   flex-direction: column;
+  width: 100%;
  }
   .news-header img,
   .hero img,
