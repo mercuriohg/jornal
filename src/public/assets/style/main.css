@@ -4,7 +4,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 #main-home {
-  width: 60%;
+  width: 80%;
   max-width: 1500px;
   margin: 30px auto;
 
@@ -14,7 +14,9 @@ body {
 
   gap: 25px;
 }
-.news-page{flex: 1;}
+.news-page {
+  flex: 1;
+}
 #main-content {
   width: 19%;
   max-width: 1500px;
@@ -36,6 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  margin: auto;
 }
 
 .hero {
@@ -54,22 +57,31 @@ body {
 
   object-fit: cover;
 }
-.news-grid-home{
-    display: grid;
-    grid-template-columns: 1fr 1fr ;
-    gap: 10px;
+.news-grid-home {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: 90%;
 }
 .hero-content {
   padding: 25px;
 }
-.hero-content > p{
-    font-family: var(--font-text);
-    margin-top: 7px;
+.hero-content > p {
+  font-family: var(--font-text);
+  margin-top: 7px;
 }
-.hero-content h1{font-family: var(--font-notice);}
-.news-content{font-family: var(--font-notice);}
-.card-body{font-family: var(--font-notice);}
-.card-body{font-family: var(--font-text);}
+.hero-content h1 {
+  font-family: var(--font-notice);
+}
+.news-content {
+  font-family: var(--font-notice);
+}
+.card-body {
+  font-family: var(--font-notice);
+}
+.card-body {
+  font-family: var(--font-text);
+}
 .news-page {
   width: 95%;
   max-width: 1100px;
@@ -382,4 +394,9 @@ h2 {
 
 .login-form button:hover {
   background: #003a86;
+}
+.news-header img,
+.hero img,
+.card img {
+  border-radius: 10px 10px 0px 0px;
 }
