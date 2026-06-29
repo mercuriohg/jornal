@@ -20,7 +20,7 @@
     <?php include 'components/header.php'; ?>
     <?php include 'components/sidebar.php'; ?>
     <main id="members">
-        <h2>Conheça os Membros do Grêmio Estudantil</h2>
+        <h2>Membros do Grêmio Estudantil</h2>
         <div id="container-member">
             <?php
             require_once __DIR__ . '/../controller/MemberController.php';

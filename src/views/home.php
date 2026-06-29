@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../controller/NewsController.php';
-$latestNews = NewsController::getNewsByType('noticia', 3);
+$latestNews = NewsController::getNewsByType('noticia', 4);
+$homeNews = array_slice($latestNews, 1, 5);
 $eventNews = NewsController::getNewsByType('evento', 3);
 $noticeNews = NewsController::getNewsByType('aviso', 3);
 ?>
@@ -81,14 +82,14 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
         <?php endif; ?>
 
         <div class="news-grid-home">
-            <?php if (empty($latestNews)): ?>
+            <?php if (empty($homeNews)): ?>
                 <article class="card">
                     <img src="/assets/img/noticia.jpg">
                     <h3>Sem notícias publicadas</h3>
                     <p>Publique notícias no painel para aparecer aqui.</p>
                 </article>
             <?php else: ?>
-                <?php foreach ($latestNews as $news): ?>
+                <?php foreach ($homeNews as $news): ?>
                     <a class="card-link" href="/noticia?id=<?= urlencode($news['id']) ?>">
                         <article class="card<?= empty($news['image']) ? ' card-no-image' : '' ?>">
                             <?php if (!empty($news['image'])): ?>

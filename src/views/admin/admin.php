@@ -24,7 +24,7 @@ $editNews = $editId ? NewsController::getNewsById($editId) : null;
                 </div>
                 <div id="logout">
                     <a class="logout-link" href="/logout">Sair</a>
-                    <a class="edit-link" href="/"> Voltar ao inicio</a>
+                    <a class="edit-link" href="/noticias"> Ver Noticia</a>
                    <a class="edit-link" href="/admin-members"> + Adicionar Membro</a>
 
                 </div>

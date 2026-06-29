@@ -39,6 +39,7 @@ $roles = [
                 <div id="logout">
                     <a class="logout-link" href="/logout">Sair</a>
                     <a class="edit-link" href="/membros">Ver membros</a>
+                    <a class="edit-link" href="/admin"> + Adicionar Noticia</a>
                 </div>
             </div>
 
