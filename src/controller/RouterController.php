@@ -10,6 +10,9 @@ class RouterController
             case '':
                 require_once __DIR__ . '/../views/home.php';
                 break;
+            case 'contato':
+                require_once __DIR__ . '/../views/contato.php';
+                break;
 
             case 'noticias':
                 require_once __DIR__ . '/../views/noticias.php';
