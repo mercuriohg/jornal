@@ -39,6 +39,7 @@ body {
   flex-direction: column;
   gap: 25px;
   margin: auto;
+  justify-content: center;
 }
 
 .hero {
