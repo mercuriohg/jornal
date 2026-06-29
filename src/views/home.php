@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../controller/NewsController.php';
 $latestNews = NewsController::getNewsByType('noticia', 4);
-$homeNews = array_slice($latestNews, 1, 5);
+$homeNews = array_slice($latestNews, 1, 4);
 $eventNews = NewsController::getNewsByType('evento', 3);
 $noticeNews = NewsController::getNewsByType('aviso', 3);
 ?>
