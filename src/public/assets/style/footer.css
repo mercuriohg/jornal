@@ -1,7 +1,8 @@
 #container-footer {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-around;
   gap: 20px;
+ 
   width: min(1200px, 100%);
   margin: 0 auto;
 }
@@ -11,6 +12,9 @@
   background-color: #004aad;
   padding: 50px 50px 20px 50px;
   margin: 0;
+}
+#contato{
+  width: 50%;
 }
 #footer-main h4,
 #footer-main address,
