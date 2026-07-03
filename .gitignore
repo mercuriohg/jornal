@@ -6,6 +6,8 @@
 src/controller/AdminController.php
 src/data/contact_messages.log
 src/data/*.log
+src/data/*.sqlite
+src/public/assets/uploads/*
 
 # Local PHP runtime artifacts
 *.cache
