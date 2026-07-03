@@ -53,7 +53,15 @@ $editNews = $editId ? NewsController::getNewsById($editId) : null;
                 <textarea id="content" name="content" placeholder="Conteúdo completo da notícia" rows="6"></textarea>
 
                 <label for="tag">Tag</label>
-                <input type="text" id="tag" name="tag" placeholder="Ex: esportes, projetos, cultura" required>
+                <select id="tag" name="tag" required>
+                    <option value="" disabled selected>Selecione uma tag</option>
+                    <option value="editais">Editais</option>
+                    <option value="esportes">Esportes</option>
+                    <option value="projetos">Projetos</option>
+                    <option value="programas">Programas</option>
+                    <option value="alertas">Alertas</option>
+                    <option value="estagio">Estágio</option>
+                </select>
 
                 <label for="type">Tipo de publicação</label>
                 <select id="type" name="type" required>
@@ -89,7 +97,15 @@ $editNews = $editId ? NewsController::getNewsById($editId) : null;
                     <textarea id="content-edit" name="content" rows="6"><?= htmlspecialchars($editNews['content'] ?? '') ?></textarea>
 
                     <label for="tag-edit">Tag</label>
-                    <input type="text" id="tag-edit" name="tag" value="<?= htmlspecialchars($editNews['tag']) ?>" required>
+                    <select id="tag-edit" name="tag" required>
+                        <option value="" disabled <?= empty($editNews['tag']) ? 'selected' : '' ?>>Selecione uma tag</option>
+                        <option value="editais" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'editais') ? 'selected' : '' ?>>Editais</option>
+                        <option value="esportes" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'esportes') ? 'selected' : '' ?>>Esportes</option>
+                        <option value="projetos" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'projetos') ? 'selected' : '' ?>>Projetos</option>
+                        <option value="programas" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'programas') ? 'selected' : '' ?>>Programas (oportunidades de bolsas, estágios)</option>
+                        <option value="alertas" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'alertas') ? 'selected' : '' ?>>Alertas</option>
+                        <option value="estagio" <?= (htmlspecialchars($editNews['tag'] ?? '') === 'estagio') ? 'selected' : '' ?>>Estágio</option>
+                    </select>
 
                     <label for="type-edit">Tipo de publicação</label>
                     <select id="type-edit" name="type" required>
