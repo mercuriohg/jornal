@@ -1,13 +1,13 @@
-@import url("./header.css");
-@import url("./reset.css");
-@import url("./main.css");
-@import url("./sidebar.css");
-@import url("./footer.css");
-@import url("./admin.css");
-@import url("./responsive.css");
-@import url("./members.css");
-@import url("./root.css");
-@import url("./contact.css");
+@import url("./css/header.css");
+@import url("./css/reset.css");
+@import url("./css/main.css");
+@import url("./css/sidebar.css");
+@import url("./css/footer.css");
+@import url("./css/admin.css");
+@import url("./css/responsive.css");
+@import url("./css/members.css");
+@import url("./css/root.css");
+@import url("./css/contact.css");
 html,
 body {
   height: 100%;
