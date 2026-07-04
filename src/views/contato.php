@@ -30,10 +30,10 @@
         <?php endif; ?>
 
         <form action="/send-email" method="post" class="contact-form">
-            <label for="name">Nome (opcional)</label>
-            <input type="text" id="name" name="name" placeholder="Seu nome">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" placeholder="Seu nome" required>
 
-            <label for="email">Seu e-mail</label>
+            <label for="email">Seu e-mail para entrarmos em contato</label>
             <input type="email" id="email" name="email" placeholder="seu@exemplo.com" required>
 
             <label for="message">Mensagem</label>
