@@ -98,6 +98,10 @@ class RouterController
                 require_once __DIR__ . '/AdminController.php';
                 AdminController::login();
                 break;
+            case 'send-email':
+                require_once __DIR__ . '/EmailController.php';
+                EmailController::send();
+                break;
             default:
                 require_once __DIR__ . '/../views/404.php';
                 break;
