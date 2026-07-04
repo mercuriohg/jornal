@@ -1,8 +1,8 @@
 #container-footer {
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
   gap: 20px;
- 
   width: min(1200px, 100%);
   margin: 0 auto;
 }
@@ -13,8 +13,9 @@
   padding: 50px 50px 20px 50px;
   margin: 0;
 }
-#contato{
+#contato {
   width: 50%;
+  text-align: left;
 }
 #footer-main h4,
 #footer-main address,
@@ -25,4 +26,32 @@ h5 {
   text-align: center;
   margin-top: 20px;
   color: #fff;
+}
+#content-principal-foot {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+}
+#footer-links-socials {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+  padding: 40px 0;
+  margin: 0;
+}
+.li-foot {
+  display: block;
+  margin: 10px 0 0 0;
+  text-align: left;
+}
+.li-foot a {
+  color: #fff;
+  text-decoration: none;
+}
+.li-foot a:hover {
+  color: #e6e6e6;
 }

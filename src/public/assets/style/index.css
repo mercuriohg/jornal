@@ -1,13 +1,15 @@
-@import url('./header.css');
-@import url('./reset.css');
-@import url('./main.css');
-@import url('./sidebar.css');
-@import url('./footer.css');
-@import url('./admin.css');
-@import url('./responsive.css');
-@import url('./members.css');
-@import url('./root.css');
-html, body {
+@import url("./header.css");
+@import url("./reset.css");
+@import url("./main.css");
+@import url("./sidebar.css");
+@import url("./footer.css");
+@import url("./admin.css");
+@import url("./responsive.css");
+@import url("./members.css");
+@import url("./root.css");
+@import url("./contact.css");
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -15,6 +17,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-#main-content{
-    flex:1;
+#main-content {
+  flex: 1;
 }
