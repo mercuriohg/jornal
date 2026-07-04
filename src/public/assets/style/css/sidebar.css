@@ -1,0 +1,48 @@
+#menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #b9cde7;
+    cursor: pointer;
+    z-index: 1001; /* Fica acima do menu lateral */
+    transition: all 0.3s ease;
+}
+
+/* Estilo do Menu Lateral */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Começa escondido fora da tela */
+    width: 250px;
+    height: 100vh;
+    background-color: #004aad; /* Cor de fundo do menu */
+    padding-top: 60px;
+    transition: all 0.3s ease; /* Transição suave ao abrir */
+    z-index: 1000;
+}
+
+/* Classe que o JavaScript ativa para mostrar o menu */
+#sidebar.active {
+    left: 0;
+}
+
+/* Links do Menu */
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar ul li a {
+    padding: 15px 25px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+#sidebar ul li a:hover {
+    background-color: #4478e9; /* Cor ao passar o mouse */
+}
+

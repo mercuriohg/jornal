@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.12),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(255, 255, 255, 0.08),
+      transparent 18%
+    ),
+    linear-gradient(135deg, #0b2656 0%, #0b4f90 45%, #4b82d3 100%);
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #101e3d;
+}
+
+.notebook-page {
+  width: min(94vw, 760px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.notebook-top {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.spiral-ring {
+  width: 16px;
+  height: 20px;
+  border: 4px solid #e2e8f0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+.notebook-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 740px;
+  padding: 32px 34px 36px;
+  background: #fbfdff;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.18);
+  animation: page-tilt 5s ease-in-out infinite;
+}
+
+.notebook-sheet::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.2),
+    transparent
+  );
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.logo-ifrs {
+  height: 52px;
+  object-fit: contain;
+}
+
+.brand-tag {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #0b4f90;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title-block {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.title-block h1 {
+  font-size: clamp(4rem, 8vw, 7rem);
+  margin-bottom: 6px;
+  color: #0f172a;
+}
+
+.title-block p {
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+.content-lines {
+  display: grid;
+  gap: 18px;
+  margin: 28px 0;
+}
+
+.content-lines span {
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.25),
+    transparent
+  );
+}
+
+.message-block {
+  text-align: left;
+}
+
+.message-block p {
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.btn-home {
+  display: inline-block;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: #0b4f90;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.btn-home:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 24px rgba(59, 130, 246, 0.25);
+}
+
+.notebook-shadow {
+  width: 92%;
+  height: 28px;
+  margin-top: 20px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.16);
+  filter: blur(1px);
+}
+
+@keyframes page-tilt {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg) translateY(-4px);
+  }
+}
