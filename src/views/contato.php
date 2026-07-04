@@ -18,7 +18,29 @@
     <?php include 'components/header.php'; ?>
     <?php include 'components/sidebar.php'; ?>
      <main id="contate">
-        <h2>Formas de mensagem do Grêmio Estudantil</h2>
+        <h2>Contate-nos via email:</h2>
+        <?php $cw_error = $_GET['error'] ?? ''; $cw_success = $_GET['success'] ?? ''; ?>
+        <?php $contact_to = trim(getenv('CONTACT_EMAIL_TO') ?: getenv('MAIL_TO') ?: 'arthur.gomesevero6@gmail.com'); ?>
+        <?php if ($cw_error === 'missing_email' || $cw_error === 'email_no_dest'): ?>
+            <div class="alert alert-error">Por favor, escreva uma mensagem. Caso o envio falhe, tente novamente mais tarde.</div>
+        <?php elseif ($cw_error === 'email_failed'): ?>
+            <div class="alert alert-error">Falha ao enviar a mensagem. O servidor de e-mail respondeu com um erro. </div>
+        <?php elseif ($cw_success === 'email_sent'): ?>
+            <div class="alert alert-success">Mensagem enviada com sucesso! Em breve entraremos em contato.</div>
+        <?php endif; ?>
+
+        <form action="/send-email" method="post" class="contact-form">
+            <label for="name">Nome (opcional)</label>
+            <input type="text" id="name" name="name" placeholder="Seu nome">
+
+            <label for="email">Seu e-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@exemplo.com" required>
+
+            <label for="message">Mensagem</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Escreva sua dúvida ou sugestão..."></textarea>
+
+            <button type="submit">Enviar por e-mail</button>
+        </form>
      </main>
     <?php include 'components/footer.php'; ?>
     <script> 
@@ -32,6 +54,15 @@
             menuToggle.classList.toggle('fa-bars');
             menuToggle.classList.toggle('fa-times');
         });
+
+        const form = document.querySelector(".contact-form");
+
+        form.addEventListener("submit", () => {
+        const btn = form.querySelector("button");
+
+        btn.disabled = true;
+        btn.textContent = "Enviando...";
+    });
     </script>
     <div vw class="enabled">
     <div vw-access-button class="active"></div>
