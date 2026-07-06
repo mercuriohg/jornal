@@ -70,6 +70,9 @@ $editNews = $editId ? NewsController::getNewsById($editId) : null;
                     <option value="aviso">Aviso</option>
                 </select>
 
+                <label for="event_date">Data do evento (opcional)</label>
+                <input type="date" id="event_date" name="event_date">
+
                 <label for="image">URL da imagem (opcional)</label>
                 <input type="url" id="image" name="image" placeholder="https://...">
 
@@ -113,6 +116,9 @@ $editNews = $editId ? NewsController::getNewsById($editId) : null;
                         <option value="evento" <?= (htmlspecialchars($editNews['type'] ?? 'noticia') === 'evento') ? 'selected' : '' ?>>Evento</option>
                         <option value="aviso" <?= (htmlspecialchars($editNews['type'] ?? 'noticia') === 'aviso') ? 'selected' : '' ?>>Aviso</option>
                     </select>
+
+                    <label for="event-date-edit">Data do evento (opcional)</label>
+                    <input type="date" id="event-date-edit" name="event_date" value="<?= htmlspecialchars($editNews['event_date'] ? date('Y-m-d', $editNews['event_date']) : '') ?>">
 
                     <label for="image-edit">URL da imagem (opcional)</label>
                     <input type="url" id="image-edit" name="image" value="<?= htmlspecialchars($editNews['image']) ?>">
