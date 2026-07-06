@@ -33,6 +33,10 @@ class RouterController
             case 'projetos':
                 require_once __DIR__ . '/../views/projetos.php';
                 break;
+
+            case 'calendario':
+                require_once __DIR__ . '/../views/calendario.php';
+                break;
              
             case 'admin':
                 AuthMiddleware::check();

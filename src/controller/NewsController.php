@@ -20,6 +20,7 @@ class NewsController
         $tag = trim($_POST['tag'] ?? '');
         $type = trim($_POST['type'] ?? 'noticia');
         $image = trim($_POST['image'] ?? '');
+        $eventDate = self::parseEventDate($_POST['event_date'] ?? '');
 
         if ($title === '' || $summary === '' || $tag === '' || $type === '') {
             header('Location: /admin?error=missing');
@@ -36,8 +37,8 @@ class NewsController
         $id = uniqid('news_', true);
 
         $stmt = Database::getConnection()->prepare(
-            'INSERT INTO news (id, title, summary, content, tag, type, image, attachments, created_at)
-             VALUES (:id, :title, :summary, :content, :tag, :type, :image, :attachments, :created_at)'
+            'INSERT INTO news (id, title, summary, content, tag, type, image, attachments, event_date, created_at)
+             VALUES (:id, :title, :summary, :content, :tag, :type, :image, :attachments, :event_date, :created_at)'
         );
 
         $stmt->execute([
@@ -49,6 +50,7 @@ class NewsController
             ':type' => $type,
             ':image' => $image,
             ':attachments' => $attachmentsJson,
+            ':event_date' => $eventDate,
             ':created_at' => time(),
         ]);
 
@@ -69,9 +71,15 @@ class NewsController
 
     public static function getNewsByType(string $type, int $limit = 3): array
     {
-        $stmt = Database::getConnection()->prepare(
-            'SELECT * FROM news WHERE LOWER(type) = LOWER(:type) ORDER BY created_at DESC LIMIT :limit'
-        );
+        if (mb_strtolower($type) === 'evento') {
+            $stmt = Database::getConnection()->prepare(
+                'SELECT * FROM news WHERE LOWER(type) = LOWER(:type) ORDER BY COALESCE(event_date, created_at) ASC LIMIT :limit'
+            );
+        } else {
+            $stmt = Database::getConnection()->prepare(
+                'SELECT * FROM news WHERE LOWER(type) = LOWER(:type) ORDER BY created_at DESC LIMIT :limit'
+            );
+        }
         $stmt->bindValue(':type', $type, PDO::PARAM_STR);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
@@ -195,6 +203,8 @@ class NewsController
             $attachments = array_values(array_merge($attachments, $newAttachments));
         }
 
+        $eventDate = self::parseEventDate($_POST['event_date'] ?? '');
+
         $stmt = Database::getConnection()->prepare(
             'UPDATE news
              SET title = :title,
@@ -203,7 +213,8 @@ class NewsController
                  tag = :tag,
                  type = :type,
                  image = :image,
-                 attachments = :attachments
+                 attachments = :attachments,
+                 event_date = :event_date
              WHERE id = :id'
         );
 
@@ -215,6 +226,7 @@ class NewsController
             ':type' => $type,
             ':image' => $image,
             ':attachments' => self::encodeAttachments($attachments),
+            ':event_date' => $eventDate,
             ':id' => $id,
         ]);
 
@@ -235,7 +247,19 @@ class NewsController
         if (!is_array($row['attachments'])) {
             $row['attachments'] = [];
         }
+        $row['event_date'] = isset($row['event_date']) && $row['event_date'] !== null ? (int) $row['event_date'] : null;
         return $row;
+    }
+
+    private static function parseEventDate(string $date): ?int
+    {
+        $date = trim($date);
+        if ($date === '') {
+            return null;
+        }
+
+        $timestamp = strtotime($date);
+        return $timestamp !== false ? $timestamp : null;
     }
 
     private static function encodeAttachments(array $attachments): string

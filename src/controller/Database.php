@@ -34,6 +34,7 @@ class Database
                 type TEXT NOT NULL,
                 image TEXT,
                 attachments TEXT,
+                event_date INTEGER,
                 created_at INTEGER NOT NULL
             )'
         );
@@ -48,5 +49,17 @@ class Database
                 created_at INTEGER NOT NULL
             )'
         );
+
+        self::ensureNewsSchema($pdo);
     }
-}
+
+    private static function ensureNewsSchema(PDO $pdo): void
+    {
+        $stmt = $pdo->query('PRAGMA table_info(news)');
+        $columns = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'name');
+
+        if (!in_array('event_date', $columns, true)) {
+            $pdo->exec('ALTER TABLE news ADD COLUMN event_date INTEGER');
+        }
+    }
+    }
