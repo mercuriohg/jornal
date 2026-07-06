@@ -80,6 +80,74 @@
   width: 100%;
   gap: 24px;
 }
+
+  .calendar-grid-month {
+    overflow-x: auto;
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
+    gap: 8px;
+  }
+
+  .calendar-weekday,
+  .calendar-day {
+    min-width: 100px;
+    padding: 10px 8px;
+    border-radius: 14px;
+    box-shadow: none;
+  }
+
+  .calendar-weekday {
+    text-align: center;
+    background: transparent;
+    color: #4a4a4a;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .calendar-day {
+    min-height: 100px;
+    border: 1px solid #eceff6;
+    background: #ffffff;
+  }
+
+  .calendar-day-has-events {
+    border-color: #dce4fb;
+  }
+
+  .day-number {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .day-events {
+    gap: 4px;
+  }
+
+  .day-event {
+    font-size: 12px;
+    padding: 6px 8px;
+    background: #f4f7ff;
+    border-radius: 10px;
+  }
+
+  .calendar-month-header {
+    padding: 18px 14px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .calendar-month-header span {
+    display: none;
+  }
+
+  .calendar-nav a {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .calendar-hero-content h1 {
+    font-size: 26px;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1179px) {
