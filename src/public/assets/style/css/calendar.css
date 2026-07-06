@@ -1,0 +1,135 @@
+.calendar-month {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calendar-month-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: white;
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-month-header span {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #004aad;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.calendar-month-header h2 {
+  margin: 10px 0 0;
+  font-size: 32px;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.calendar-nav a {
+  color: #004aad;
+  text-decoration: none;
+  background: #eef4ff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.calendar-nav a:hover {
+  background: #d7e4ff;
+  transform: translateY(-1px);
+}
+
+.calendar-grid-month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.calendar-weekday {
+  padding: 14px 12px;
+  font-weight: 700;
+  text-align: center;
+  color: #555;
+  background: #f3f6ff;
+  border-radius: 12px;
+}
+
+.calendar-day {
+  min-height: 140px;
+  background: white;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-day-empty {
+  background: transparent;
+  box-shadow: none;
+}
+
+.calendar-day-has-events {
+  border: 1px solid #d6e4ff;
+}
+
+.day-number {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.day-event {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #eef4ff;
+  color: #004aad;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.day-event:hover {
+  background: #d7e4ff;
+}
+
+.news-header img,
+.hero img,
+.card img {
+  border-radius: 10px 10px 0px 0px;
+}
+.widget li a {
+  margin: 20px 0;
+}
+.widget li a {
+  color: #004aad;
+  text-decoration: none;
+}
+.widget li a:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+#event_date{
+    width: 90%;
+}
