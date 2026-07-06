@@ -120,7 +120,7 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
                         <li>
                             <a href="/noticia?id=<?= urlencode($event['id']) ?>"><?= htmlspecialchars($event['title']) ?></a>
                             <br>
-                            <small><?= date('d/m/Y', $event['created_at']) ?></small>
+                            <small><?= date('d/m/Y', $event['event_date'] ?? $event['created_at']) ?></small>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -154,7 +154,6 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
 
 <section id="galeria"></section>
 
-<section id="calendario"></section>
 <?php include 'components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');

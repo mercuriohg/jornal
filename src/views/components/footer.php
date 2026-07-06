@@ -11,7 +11,7 @@
         <ul id="footer-links-socials">
             <li class="li-foot"><a href="/contato"><i class="fa-solid fa-inbox"></i>Tire suas dúvidas</a></li>
             <li class="li-foot"><a href="https://www.instagram.com/gremio_estudantil.if/" target="_blank"><i class="fab fa-instagram"></i> Siga-nos no Instagram</a></li>
-            <li class="li-foot"><a href="https://www.youtube.com/@gremioestudantilldm" target="_blank"><i class="fab fa-youtube"></i> Assista aos nossos vídeos</a></li>
+            <li class="li-foot"><a href="https://www.youtube.com/@IFRSCampusRolante" target="_blank"><i class="fab fa-youtube"></i> Assista aos nossos vídeos</a></li>
         </ul>
     </div>
     <h5><?php echo date('Y')?> &copy; Grêmio Estudantil - Legado de Malala. IFRS Campus Rolante.</h5>

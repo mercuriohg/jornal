@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error - 404</title>
-    <link rel="stylesheet" href="/assets/style/404.css">
+    <link rel="stylesheet" href="/assets/style/css/404.css">
 </head>
 <body>
     <div class="notebook-page">
