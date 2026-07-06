@@ -310,6 +310,52 @@ h2 {
   text-align: center;
 }
 
+.home-calendar-widget {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.widget.home-calendar-widget {
+  width: 100%;
+  max-width: 560px;
+}
+
+.widget.home-calendar-widget ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 18px;
+}
+
+.widget.home-calendar-widget li {
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.widget.home-calendar-widget li a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.widget.home-calendar-widget li a:hover {
+  text-decoration: underline;
+}
+
+.calendar-more {
+  display: inline-block;
+  margin-top: 12px;
+  background: #004aad;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.calendar-more:hover {
+  background: #0b5ed7;
+}
+
 .login-main {
   min-height: calc(100vh - 260px);
   display: flex;
@@ -326,20 +372,126 @@ h2 {
   padding: 35px;
 }
 
-.login-brand {
-  margin-bottom: 24px;
+.calendar-page {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.login-brand span {
+.calendar-hero {
+  background: white;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-hero-content span {
   display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #004aad;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.calendar-hero-content h1 {
+  margin: 16px 0 12px;
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.calendar-hero-content p {
+  max-width: 760px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.event-card-date {
   background: #0d6efd;
   color: white;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.event-card-date strong {
+  font-size: 18px;
+}
+
+.event-card-date span {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.event-card-body {
+  flex: 1;
+  padding: 22px;
+}
+
+.event-card-body h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.event-card-body p {
+  margin: 0;
+  color: #555;
+  line-height: 1.7;
+}
+
+.event-card-actions {
+  padding: 18px 20px 24px;
+}
+
+.event-link {
+  display: inline-block;
+  background: #004aad;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.event-link:hover {
+  background: #003a86;
+}
+
+.calendar-empty {
+  background: white;
+  border-radius: 18px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-empty h2 {
+  margin-bottom: 16px;
+}
+
+.calendar-empty p {
+  color: #555;
+  line-height: 1.8;
 }
 
 .login-brand h1 {
@@ -400,16 +552,4 @@ h2 {
 .hero img,
 .card img {
   border-radius: 10px 10px 0px 0px;
-}
-.widget li a{
-
-  margin: 20px 0;
-}
-.widget li a{
-  color : #004aad;
-  text-decoration: none;
-}
-.widget li a:hover{
-  color : #0d6efd;
-  text-decoration: underline;
 }
