@@ -1,13 +1,12 @@
 # Environment files
 .env
-.env.*
-
 # Sensitive or local runtime files
 src/controller/AdminController.php
 src/data/contact_messages.log
 src/data/*.log
 src/data/*.sqlite
 src/public/assets/uploads/*
+src/public/assets/docs/*
 
 # Local PHP runtime artifacts
 *.cache
