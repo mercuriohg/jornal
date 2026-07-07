@@ -46,15 +46,3 @@
   background-color: #4478e9; /* Cor ao passar o mouse */
 }
 
-@media (max-width: 480px) {
-  #sidebar {
-    width: 100vw;
-    max-width: 90vw;
-    left: -100vw;
-    box-sizing: border-box;
-  }
-
-  #sidebar.active {
-    left: 0;
-  }
-}

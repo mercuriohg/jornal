@@ -1,16 +1,29 @@
+/*Style for iphone */
+@media (max-width: 480px) {
+  #sidebar {
+    width: 100vw;
+    max-width: 90vw;
+    left: -100vw;
+    box-sizing: border-box;
+  }
+
+  #sidebar.active {
+    left: 0;
+  }
+}
 @media (max-width: 768px) {
   .news-grid-home,
   .news-grid {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
- }
- .teacher-card{
-  width: 90%;
- }
- .subtitle{
-  text-align:center;
- }
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .teacher-card {
+    width: 90%;
+  }
+  .subtitle {
+    text-align: center;
+  }
   .news-header img,
   .hero img,
   .card img {
@@ -37,10 +50,10 @@
     display: flex;
     flex-wrap: wrap;
   }
-  #journal-main{
+  #journal-main {
     width: 100%;
   }
-  .card{
+  .card {
     width: 100%;
   }
   #main-home {
@@ -74,79 +87,91 @@
     flex-direction: column;
   }
   #content-principal-foot {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  gap: 24px;
-}
-
-  .calendar-grid-month {
-    overflow-x: auto;
-    grid-template-columns: repeat(7, minmax(100px, 1fr));
-    gap: 8px;
-  }
-
-  .calendar-weekday,
-  .calendar-day {
-    min-width: 100px;
-    padding: 10px 8px;
-    border-radius: 14px;
-    box-shadow: none;
-  }
-
-  .calendar-weekday {
-    text-align: center;
-    background: transparent;
-    color: #4a4a4a;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-
-  .calendar-day {
-    min-height: 100px;
-    border: 1px solid #eceff6;
-    background: #ffffff;
-  }
-
-  .calendar-day-has-events {
-    border-color: #dce4fb;
-  }
-
-  .day-number {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .day-events {
-    gap: 4px;
-  }
-
-  .day-event {
-    font-size: 12px;
-    padding: 6px 8px;
-    background: #f4f7ff;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 24px;
   }
 
   .calendar-month-header {
-    padding: 18px 14px;
+    flex-direction: column;
+    text-align: center;
+    padding: 18px;
+  }
+
+  .calendar-month-header h2 {
+    font-size: 2.3rem;
+    color: #000000;
+  }
+
+  .calendar-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .calendar-nav a {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .calendar-grid-month {
+    gap: 4px;
+  }
+
+  .calendar-weekday {
+    background: transparent;
+    padding: 6px;
+    font-size: 0.9rem;
+    border-radius: 0;
+  }
+
+  .calendar-day {
+    min-height: 60px;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .calendar-day-empty {
     background: transparent;
     box-shadow: none;
   }
 
-  .calendar-month-header span {
+  .calendar-day-has-events {
+    border: none;
+  }
+
+  .day-number {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .day-events {
+    align-items: center;
+    gap: 2px;
+  }
+
+  .day-event {
+    background: none;
+    padding: 0;
+  }
+
+  .event-title {
     display: none;
   }
 
-  .calendar-nav a {
-    padding: 10px 12px;
-    font-size: 13px;
-  }
-
-  .calendar-hero-content h1 {
-    font-size: 26px;
+  .event-dot {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--fundo);
   }
 }
 
@@ -159,7 +184,11 @@
   .card img {
     border-radius: 10px 10px 0px 0px;
   }
-
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
   #main-home {
     width: 90%;
     max-width: 1500px;
@@ -171,30 +200,37 @@
   #content-aside {
     display: none;
   }
-  #journal-main{
+  #journal-main {
     width: 100%;
   }
-  .news-grid-home{
+  .news-grid-home {
     width: 100%;
   }
   #content-principal-foot {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 100%;
-  gap: 24px;
-}
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    gap: 24px;
+  }
+  .calendar-grid-month {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+  }
 }
 
 @media (max-width: 1024px) {
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
   #header-main {
     padding: 12px 16px;
   }
-   #content-aside {
+  #content-aside {
     display: none;
-   }
-  #journal-main{
-    width: 400;
   }
   #content-header {
     justify-content: center;
@@ -204,5 +240,4 @@
     width: min(100%, 220px);
     max-height: 110px;
   }
-  
 }
