@@ -15,6 +15,7 @@ $isAdminLoggedIn = !empty($_SESSION['username']);
         <li><a href="/projetos">Projetos</a></li>
         <li><a href="/calendario">Calendário</a></li>
         <li><a href="/contato">Contato</a></li>
+        <li><a href="/editais">Editais</a></li>
         <li><a href="/membros">Membros</a></li>
         <?php if ($isAdminLoggedIn): ?>
             <li><a href="/admin">Painel Admin</a></li>

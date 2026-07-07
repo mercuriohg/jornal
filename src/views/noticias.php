@@ -21,8 +21,8 @@ $newsList = $searchQuery !== '' ? NewsController::searchNews($searchQuery) : New
 
 </head>
 <body>
-    <?php include 'components/header.php'; ?>
-        <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
 
 
    <main id="main-content">
@@ -72,8 +72,9 @@ $newsList = $searchQuery !== '' ? NewsController::searchNews($searchQuery) : New
             </div>
         </section>
    </main>
+    <?php include __DIR__ . '/components/duvidas.php'; ?>
 
-    <?php include 'components/footer.php'; ?>
+    <?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');

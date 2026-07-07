@@ -50,15 +50,15 @@ $nextMonth = $currentDate->modify('+1 month');
     <link rel="icon" href="/assets/img/malal_icon.ico" type="image/x-icon">
 </head>
 <body>
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
 
     <main class="calendar-page">
         <section class="calendar-hero">
             <div class="calendar-hero-content">
                 <span>CALENDÁRIO</span>
                 <h1>Próximos eventos do Grêmio Estudantil</h1>
-                <p>Aqui você encontra todos os eventos publicados pelo painel administrativo. Clique para ver os detalhes de cada evento.</p>
+                <p>Aqui você encontra todos os eventos publicados pelo Grêmio Estudantil. Clique para ver os detalhes de cada evento.</p>
             </div>
         </section>
 
@@ -90,13 +90,21 @@ $nextMonth = $currentDate->modify('+1 month');
                     <div class="calendar-day <?= $dayEvents ? 'calendar-day-has-events' : '' ?>">
                         <div class="day-number"><?= $day ?></div>
                         <?php if (!empty($dayEvents)): ?>
-                            <div class="day-events">
-                                <?php foreach ($dayEvents as $event): ?>
-                                    <a class="day-event" href="/noticia?id=<?= urlencode($event['id']) ?>" title="<?= htmlspecialchars($event['title']) ?>">
-                                        <?= htmlspecialchars(mb_strimwidth($event['title'], 0, 34, '...')) ?>
-                                    </a>
-                                <?php endforeach; ?>
-                            </div>
+                           <div class="day-events">
+                        <?php foreach ($dayEvents as $event): ?>
+        <a
+            class="day-event"
+            href="/noticia?id=<?= urlencode($event['id']) ?>"
+            title="<?= htmlspecialchars($event['title']) ?>"
+        >
+            <span class="event-title">
+                <?= htmlspecialchars(mb_strimwidth($event['title'], 0, 34, '...')) ?>
+            </span>
+
+            <span class="event-dot"></span>
+        </a>
+    <?php endforeach; ?>
+</div>
                         <?php endif; ?>
                     </div>
                 <?php endfor; ?>
@@ -129,8 +137,8 @@ $nextMonth = $currentDate->modify('+1 month');
             <?php endif; ?>
         </section>
     </main>
-
-    <?php include 'components/footer.php'; ?>
+    <?php include __DIR__ . '/components/duvidas.php'; ?>
+    <?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');

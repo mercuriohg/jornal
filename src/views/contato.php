@@ -15,8 +15,8 @@
     <link rel="icon" href="/assets/img/malal_icon.ico" type="image/x-icon">
 </head>
 <body>
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
      <main id="contate">
         <h2>Contate-nos via email:</h2>
         <?php $cw_error = $_GET['error'] ?? ''; $cw_success = $_GET['success'] ?? ''; ?>
@@ -152,7 +152,8 @@
     </div>
 </section>
      </main>
-    <?php include 'components/footer.php'; ?>
+    <?php include __DIR__ . '/components/duvidas.php'; ?>
+    <?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');

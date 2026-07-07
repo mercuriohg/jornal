@@ -17,8 +17,8 @@
 
 </head>
 <body id="body-member">
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
     <main id="members">
         <h2>Membros do Grêmio Estudantil</h2>
         <div id="container-member">
@@ -44,7 +44,9 @@
             <?php endif; ?>
         </div>
     </main>
-    <?php include 'components/footer.php'; ?>
+    <?php include __DIR__ . '/components/duvidas.php'; ?>
+
+    <?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');

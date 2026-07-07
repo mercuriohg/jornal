@@ -20,8 +20,8 @@ $newsList = NewsController::getNewsByTag('projetos');
 
 </head>
 <body>
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
 
 
    <main id="main-content">
@@ -39,7 +39,7 @@ $newsList = NewsController::getNewsByTag('projetos');
                     <div class="card">
                         <div class="card-content">
                             <h3>Sem notícias de projetos</h3>
-                            <p>Publique novas notícias no painel administrativo para aparecer aqui.</p>
+                            <p>Publique novas notícias no painel para aparecer aqui.</p>
                         </div>
                     </div>
                 <?php else: ?>
@@ -47,8 +47,6 @@ $newsList = NewsController::getNewsByTag('projetos');
                         <article class="card">
                             <?php if (!empty($news['image'])): ?>
                                 <img src="<?= htmlspecialchars($news['image']) ?>" alt="<?= htmlspecialchars($news['title']) ?>">
-                            <?php else: ?>
-                                <img src="/assets/img/noticia.jpg" alt="Imagem da notícia">
                             <?php endif; ?>
                             <div class="card-body">
                                 <span class="tag-badge"><?= htmlspecialchars(ucfirst($news['tag'])) ?></span>
@@ -61,8 +59,9 @@ $newsList = NewsController::getNewsByTag('projetos');
             </div>
         </section>
    </main>
+    <?php include __DIR__ . '/components/duvidas.php'; ?>
 
-    <?php include 'components/footer.php'; ?>
+    <?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');

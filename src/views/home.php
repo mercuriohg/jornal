@@ -23,12 +23,12 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
 </head>
 <body>
 
-    <?php include 'components/header.php'; ?>
+    <?php include __DIR__ . '/components/header.php'; ?>
     <form class="search-form" action="/noticias" method="get">
             <input type="search" name="q" placeholder="Buscar por jogos, esportes, projetos..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
             <button type="submit"><i class="fas fa-search"></i></button>
     </form>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include __DIR__ . '/components/sidebar.php'; ?>
 
    <main id="main-home">
 
@@ -44,7 +44,7 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
                 <img src="/assets/img/noticia.jpg">
                 <div>
                     <h4>Sem notícias publicadas</h4>
-                    <small>Publique no painel administrativo</small>
+                    <small>Publique no painel </small>
                 </div>
             </div>
         <?php else: ?>
@@ -152,9 +152,54 @@ $noticeNews = NewsController::getNewsByType('aviso', 3);
 
 </main>
 
-<section id="galeria"></section>
+<section id="table-editais-docs">
+    <div class="table-editais">
+        <h2>Últimos documentos publicados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Documento</th>
+                    <th>Publicado em</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $documents = [];
+                foreach ($latestNews as $newsItem) {
+                    foreach ($newsItem['attachments'] ?? [] as $attachment) {
+                        $documents[] = [
+                            'title' => $newsItem['title'],
+                            'url' => $attachment,
+                            'date' => $newsItem['created_at'],
+                        ];
+                    }
+                }
 
-<?php include 'components/footer.php'; ?>
+                usort($documents, function ($a, $b) {
+                    return $b['date'] <=> $a['date'];
+                });
+
+                $documents = array_slice($documents, 0, 6);
+                ?>
+                <?php if (empty($documents)): ?>
+                    <tr>
+                        <td colspan="2">Nenhum documento disponível.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($documents as $document): ?>
+                        <tr>
+                            <td><a href="<?= htmlspecialchars($document['url']) ?>" target="_blank"><?= htmlspecialchars(basename($document['url'])) ?></a></td>
+                            <td><?= date('d/m/Y', $document['date']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+<?php include __DIR__ . '/components/duvidas.php'; ?>
+
+<?php include __DIR__ . '/components/footer.php'; ?>
     <script> 
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
