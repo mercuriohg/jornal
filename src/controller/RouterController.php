@@ -33,6 +33,10 @@ class RouterController
             case 'projetos':
                 require_once __DIR__ . '/../views/projetos.php';
                 break;
+            case 'editais':
+                require_once __DIR__ . '/../views/editais.php';
+                break;
+
 
             case 'calendario':
                 require_once __DIR__ . '/../views/calendario.php';

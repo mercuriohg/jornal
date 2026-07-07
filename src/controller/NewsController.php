@@ -274,7 +274,7 @@ class NewsController
         }
 
         $saved = [];
-        $uploadDir = __DIR__ . '/../public/assets/uploads';
+        $uploadDir = __DIR__ . '/../public/assets/docs';
 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -306,7 +306,7 @@ class NewsController
             $target = $uploadDir . '/' . $fileName;
 
             if (move_uploaded_file($tmpName, $target)) {
-                $saved[] = '/assets/uploads/' . $fileName;
+                $saved[] = '/assets/docs/' . $fileName;
             }
         }
 
