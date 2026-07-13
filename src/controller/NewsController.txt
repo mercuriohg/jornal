@@ -1,0 +1,48 @@
+<?php
+
+require_once __DIR__ . '/../model/NewsModel.php';
+
+class NewsController
+{
+    public static function readNews(): array
+    {
+        return self::rowsToNews(NewsModel::all());
+    }
+
+    public static function getLatestNews(int $limit = 3): array
+    {
+        return self::rowsToNews(NewsModel::latest($limit));
+    }
+
+    public static function getNewsByType(string $type, int $limit = 3): array
+    {
+        return self::rowsToNews(
+            NewsModel::findByType($type, $limit)
+        );
+    }
+
+    public static function searchNews(string $query): array
+    {
+        if (trim($query) === '') {
+            return self::readNews();
+        }
+
+        return self::rowsToNews(
+            NewsModel::search($query)
+        );
+    }
+
+    public static function getNewsByTag(string $tag): array
+    {
+        return self::rowsToNews(
+            NewsModel::findByTag($tag)
+        );
+    }
+
+    public static function getNewsById(string $id): ?array
+    {
+        $row = NewsModel::find($id);
+
+        return $row ? self::hydrateNewsRow($row) : null;
+    }
+}
