@@ -1,0 +1,385 @@
+body {
+  margin: 0;
+  background: #f5f5f5;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#main-home {
+  width: 60%;
+  max-width: 1500px;
+  margin: 30px auto;
+
+  display: grid;
+
+  grid-template-columns: 280px 1fr 280px;
+
+  gap: 25px;
+}
+.news-page{flex: 1;}
+#main-content {
+  width: 19%;
+  max-width: 1500px;
+  margin: 30px auto;
+
+  display: grid;
+
+  gap: 25px;
+}
+
+#content-aside,
+#curiosidades {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#journal-main {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.hero {
+  background: white;
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.hero img {
+  width: 100%;
+  height: 350px;
+
+  object-fit: cover;
+}
+.news-grid-home{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 10px;
+}
+.hero-content {
+  padding: 25px;
+}
+.hero-content > p{
+    font-family: var(--font-text);
+    margin-top: 7px;
+}
+.hero-content h1{font-family: var(--font-notice);}
+.news-content{font-family: var(--font-notice);}
+.card-body{font-family: var(--font-notice);}
+.card-body{font-family: var(--font-text);}
+.news-page {
+  width: 95%;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding-bottom: 60px;
+}
+
+.news-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.news-header {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.news-header img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.news-body {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+}
+
+.news-summary {
+  font-size: 18px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.news-content {
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+
+.attachment-list h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.attachment-list ul {
+  padding-left: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.hero span {
+  background: #0d6efd;
+
+  color: white;
+
+  padding: 6px 14px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+}
+
+.hero h1 {
+  margin-top: 20px;
+
+  font-size: 34px;
+}
+
+.hero p {
+  color: #666;
+
+  line-height: 1.7;
+}
+
+.hero button {
+  margin-top: 20px;
+
+  border: none;
+
+  background: #0d6efd;
+
+  color: white;
+
+  padding: 12px 25px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.hero-button {
+  display: inline-block;
+  margin-top: 20px;
+  background: #0d6efd;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.hero-button:hover {
+  background: #0b5ed7;
+}
+
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link .card:hover {
+  transform: translateY(-5px);
+}
+
+.card-link .card {
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card.card-no-image {
+  display: grid;
+  align-items: stretch;
+}
+
+.card.card-no-image .card-body {
+  padding: 25px 20px;
+}
+
+.card.card-no-image .tag-badge {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.card h3 {
+  margin: 15px;
+}
+
+.card p {
+  margin: 0 15px 20px;
+
+  color: #666;
+}
+
+.widget {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.widget ul {
+  padding-left: 20px;
+}
+
+.mini-news {
+  display: flex;
+
+  gap: 15px;
+
+  background: white;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.mini-news img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.mini-news.mini-news-no-image {
+  align-items: center;
+}
+
+.mini-news.mini-news-no-image img {
+  display: none;
+}
+
+.mini-news.mini-news-no-image > div {
+  flex: 1;
+}
+
+.mini-news h4 {
+  margin: 0;
+}
+
+.mini-news small {
+  color: #666;
+}
+#logo-if {
+  display: flex;
+  justify-content: center;
+}
+h2 {
+  text-align: center;
+}
+
+.login-main {
+  min-height: calc(100vh - 260px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.login-card {
+  width: min(100%, 480px);
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 35px;
+}
+
+.login-brand {
+  margin-bottom: 24px;
+}
+
+.login-brand span {
+  display: inline-block;
+  background: #0d6efd;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.login-brand h1 {
+  margin: 14px 0 8px;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.login-brand p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-form label {
+  font-weight: 600;
+  color: #333;
+}
+
+.login-form input {
+  padding: 12px 14px;
+  border: 1px solid #d7dfe7;
+  border-radius: 10px;
+  font-size: 15px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.login-form button {
+  margin-top: 8px;
+  border: none;
+  background: #004aad;
+  color: white;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-form button:hover {
+  background: #003a86;
+}

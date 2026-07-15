@@ -1,0 +1,33 @@
+@media (max-width: 768px) {
+  #main-content {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+  #content-aside {
+    display: none;
+  }
+  #main-home {
+  width: 90%;
+  max-width: 1500px;
+  margin: 30px auto;
+
+  display: flex;
+
+ flex-direction: column;
+  gap: 25px;
+}
+
+}
+@media (min-width: 769px) and (max-width: 1179px) {
+#main-home {
+  width: 90%;
+  max-width: 1500px;
+  margin: 30px auto;
+
+  display: flex;
+
+ flex-direction: column;
+  gap: 25px;
+}
+}
