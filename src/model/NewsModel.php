@@ -195,4 +195,27 @@ class NewsModel
             ':id' => $id
         ]);
     }
+    public static function findByTags(array $tags, int $limit): array
+{
+    if (empty($tags)) {
+        return [];
+    }
+
+    $placeholders = implode(',', array_fill(0, count($tags), '?'));
+
+    $sql = "SELECT *
+            FROM news
+            WHERE LOWER(tag) IN ($placeholders)
+            ORDER BY created_at DESC
+            LIMIT ?";
+
+    $stmt = Database::getConnection()->prepare($sql);
+
+    $values = array_map('mb_strtolower', $tags);
+    $values[] = $limit;
+
+    $stmt->execute($values);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+ }
 }
