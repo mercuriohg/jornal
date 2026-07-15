@@ -6,12 +6,16 @@ class NewsController
 {
     public static function readNews(): array
     {
-        return self::rowsToNews(NewsModel::all());
+        return self::rowsToNews(
+            NewsModel::all()
+        );
     }
 
     public static function getLatestNews(int $limit = 3): array
     {
-        return self::rowsToNews(NewsModel::latest($limit));
+        return self::rowsToNews(
+            NewsModel::latest($limit)
+        );
     }
 
     public static function getNewsByType(string $type, int $limit = 3): array
@@ -39,10 +43,132 @@ class NewsController
         );
     }
 
+    public static function getNewsByTags(array $tags, int $limit = 3): array
+    {
+        return self::rowsToNews(
+            NewsModel::findByTags($tags, $limit)
+        );
+    }
+
     public static function getNewsById(string $id): ?array
     {
         $row = NewsModel::find($id);
 
-        return $row ? self::hydrateNewsRow($row) : null;
+        return $row
+            ? self::hydrateNewsRow($row)
+            : null;
     }
+
+    public static function save(): void
+    {
+        $title = trim($_POST['title'] ?? '');
+        $summary = trim($_POST['summary'] ?? '');
+        $content = trim($_POST['content'] ?? '');
+        $tag = trim($_POST['tag'] ?? '');
+        $type = trim($_POST['type'] ?? 'noticia');
+        $image = trim($_POST['image'] ?? '');
+
+        $eventDate = self::parseEventDate($_POST['event_date'] ?? '');
+
+        if ($title === '' || $summary === '' || $tag === '' || $type === '') {
+            header('Location: /admin?error=missing');
+            exit;
+        }
+
+        $imageUpload = self::processImageUpload($_FILES['image_file'] ?? []);
+
+        if ($imageUpload !== '') {
+            $image = $imageUpload;
+        }
+
+        $attachments = self::processAttachments($_FILES['attachments'] ?? []);
+
+        NewsModel::create([
+            'id' => uniqid('news_', true),
+            'title' => $title,
+            'summary' => $summary,
+            'content' => $content,
+            'tag' => $tag,
+            'type' => $type,
+            'image' => $image,
+            'attachments' => self::encodeAttachments($attachments),
+            'event_date' => $eventDate,
+            'created_at' => time()
+        ]);
+
+        header('Location: /admin?success=1');
+        exit;
+    }
+
+    public static function update(string $id): void
+    {
+        if ($id === '') {
+            header('Location: /admin?error=missing');
+            exit;
+        }
+
+        $existing = self::getNewsById($id);
+
+        if (!$existing) {
+            header('Location: /admin?error=notfound');
+            exit;
+        }
+
+        $title = trim($_POST['title'] ?? '');
+        $summary = trim($_POST['summary'] ?? '');
+        $content = trim($_POST['content'] ?? '');
+        $tag = trim($_POST['tag'] ?? '');
+        $type = trim($_POST['type'] ?? 'noticia');
+        $image = trim($_POST['image'] ?? '');
+
+        $imageUpload = self::processImageUpload($_FILES['image_file'] ?? []);
+
+        if ($imageUpload !== '') {
+            $image = $imageUpload;
+        }
+
+        $attachments = $existing['attachments'];
+
+        $newAttachments = self::processAttachments($_FILES['attachments'] ?? []);
+
+        if (!empty($newAttachments)) {
+            $attachments = array_merge($attachments, $newAttachments);
+        }
+
+        NewsModel::update($id, [
+            'title' => $title,
+            'summary' => $summary,
+            'content' => $content,
+            'tag' => $tag,
+            'type' => $type,
+            'image' => $image,
+            'attachments' => self::encodeAttachments($attachments),
+            'event_date' => self::parseEventDate($_POST['event_date'] ?? '')
+        ]);
+
+        header('Location: /admin?updated=1');
+        exit;
+    }
+
+    public static function delete(string $id): void
+    {
+        if ($id === '') {
+            header('Location: /admin?error=missing');
+            exit;
+        }
+
+        NewsModel::delete($id);
+
+        header('Location: /admin?deleted=1');
+        exit;
+    }
+
+    // Mantêm-se iguais:
+    // rowsToNews()
+    // hydrateNewsRow()
+    // parseEventDate()
+    // encodeAttachments()
+    // processAttachments()
+    // processImageUpload()
+    // sanitizeFilename()
 }
