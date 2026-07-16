@@ -20,7 +20,7 @@
      <main id="contate">
         <h2>Contate-nos via email:</h2>
         <?php $cw_error = $_GET['error'] ?? ''; $cw_success = $_GET['success'] ?? ''; ?>
-        <?php $contact_to = trim(getenv('CONTACT_EMAIL_TO') ?: getenv('MAIL_TO') ?: 'arthur.gomesevero6@gmail.com'); ?>
+        <?php $contact_to = trim(getenv('CONTACT_EMAIL_TO') ?: getenv('MAIL_TO') ?: 'gremioestudantil@rolante.ifrs.edu.br'); ?>
         <?php if ($cw_error === 'missing_email' || $cw_error === 'email_no_dest'): ?>
             <div class="alert alert-error">Por favor, escreva uma mensagem. Caso o envio falhe, tente novamente mais tarde.</div>
         <?php elseif ($cw_error === 'email_failed'): ?>
