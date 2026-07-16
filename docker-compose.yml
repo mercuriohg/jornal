@@ -5,7 +5,11 @@ services:
     ports:
       - "8080:80"
     volumes:
+      # Código da aplicação
       - ./src:/var/www/html
+
+      # Arquivo .env da raiz do projeto
+      - ./.env:/var/www/html/.env
     depends_on:
       - mysql
 
@@ -30,7 +34,7 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_USER: root
-      PMA_PASSWORD: 1234
+      PMA_PASSWORD: 12071997
     depends_on:
       - mysql
 
