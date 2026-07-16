@@ -29,7 +29,7 @@ class EmailController
             exit;
         }
 
-        $to = self::envValue('CONTACT_EMAIL_TO', self::envValue('MAIL_TO', 'arthur.gomesevero6@gmail.com'));
+        $to = self::envValue('CONTACT_EMAIL_TO', self::envValue('MAIL_TO', 'gremioestudantil@rolante.ifrs.edu.br'));
         if (empty($to)) {
             header('Location: /contato?error=email_no_dest');
             exit;
@@ -130,7 +130,8 @@ Equipe do Jornal do Grêmio Estudantil
             return trim($value);
         }
 
-        $envFile = dirname(__DIR__, 2) . '/.env';
+        $envFile = dirname(__DIR__) . '/.env';
+
         if (is_file($envFile)) {
             $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             if ($lines) {
@@ -170,6 +171,13 @@ Equipe do Jornal do Grêmio Estudantil
             } elseif ($secure === 'tls') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             }
+            $mail->SMTPOptions = [
+            'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true,
+            ],
+        ];
 
             $mail->setFrom($envelopeFrom, 'Jornal do Grêmio Estudantil');
             $mail->addAddress($to);
@@ -178,7 +186,8 @@ Equipe do Jornal do Grêmio Estudantil
             $mail->isHTML(true);
             $mail->Body = $message;
             $mail->AltBody = strip_tags(str_replace(["\r\n", "\n"], "\n", $message));
-
+            $mail->SMTPDebug = 0;
+            $mail->Debugoutput = 'html';
             $mail->send();
             return ['sent' => true, 'error' => ''];
         } catch (PHPMailerException $e) {
