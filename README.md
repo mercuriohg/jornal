@@ -42,6 +42,22 @@ O projeto organiza seu código em diretórios específicos para:
 2. Garanta que as pastas de armazenamento existam e tenham permissão de escrita.
 3. Configure as variáveis de ambiente para o envio de e-mails, se estiver utilizando o formulário de contato.
 
+## Deploy na Vercel
+
+O projeto inclui `vercel.json` para executar o PHP na plataforma.
+
+Para publicar:
+
+1. Importe este repositório no painel da Vercel.
+2. Configure um banco MySQL externo e adicione estas variáveis de ambiente:
+   - `DB_HOST`
+   - `DB_PORT`
+   - `DB_NAME`
+   - `DB_USER`
+   - `DB_PASSWORD`
+3. Opcionalmente, configure as variáveis SMTP presentes em `.env.example`.
+4. Faça o deploy. O projeto ficará disponível publicamente na URL gerada pela Vercel.
+
 ## Execução Local
 
 No terminal, a partir da raiz do projeto, execute:

@@ -7,16 +7,37 @@ class Database
     public static function getConnection(): PDO
     {
         if (self::$connection === null) {
-            $dir = dirname(self::DB_FILE);
-            if (!is_dir($dir)) {
-                mkdir($dir, 0755, true);
-            }
+            if (getenv('DB_HOST')) {
+                $dsn = sprintf(
+                    'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
+                    getenv('DB_HOST'),
+                    getenv('DB_PORT') ?: '3306',
+                    getenv('DB_NAME')
+                );
+            } else {
+                $dir = dirname(self::DB_FILE);
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0755, true);
+                }
 
-            $dsn = 'sqlite:' . self::DB_FILE;
-            self::$connection = new PDO($dsn);
+                $dsn = 'sqlite:' . self::DB_FILE;
+            }
+            if (getenv('DB_HOST')) {
+                self::$connection = new PDO(
+                    $dsn,
+                    getenv('DB_USER') ?: '',
+                    getenv('DB_PASSWORD') ?: ''
+                );
+            } else {
+                self::$connection = new PDO($dsn);
+            }
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            self::createSchema(self::$connection);
+            if (getenv('DB_HOST')) {
+                self::createMySqlSchema(self::$connection);
+            } else {
+                self::createSchema(self::$connection);
+            }
         }
 
         return self::$connection;
@@ -62,4 +83,32 @@ class Database
             $pdo->exec('ALTER TABLE news ADD COLUMN event_date INTEGER');
         }
     }
+
+    private static function createMySqlSchema(PDO $pdo): void
+    {
+        $pdo->exec(
+            'CREATE TABLE IF NOT EXISTS news (
+                id VARCHAR(255) PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                summary TEXT NOT NULL,
+                content TEXT,
+                tag VARCHAR(255) NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                image TEXT,
+                attachments TEXT,
+                event_date BIGINT,
+                created_at BIGINT NOT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
+        );
+
+        $pdo->exec(
+            'CREATE TABLE IF NOT EXISTS members (
+                id VARCHAR(255) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                role VARCHAR(255) NOT NULL,
+                bio TEXT NOT NULL,
+                photo TEXT,
+                created_at BIGINT NOT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
+        );
     }

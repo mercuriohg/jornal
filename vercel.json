@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "builds": [
+    {
+      "src": "src/public/**",
+      "use": "vercel-php@0.7.4"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/src/public/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/public/index.php"
+    }
+  ]
+}
